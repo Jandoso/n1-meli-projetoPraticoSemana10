@@ -13,6 +13,15 @@ db.once("open", function(){
     console.log("Conexão com banco de dados feita com sucesso");
 });
 
+app.use(function(req, res, next){
+    res.header('Acess-Control-Allow-Origin', '*')
+    res.header(
+        "Acess-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    )
+    next()
+}); 
+
 app.use(bodyParser.json());
 
 app.use('/clientes', clientes);
