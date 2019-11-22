@@ -51,3 +51,36 @@ exports.post = (req, res) => {
         });
     });
 };
+
+exports.update = (req, res) => {
+
+    if(!validaFormulario(req.body)) return res.status(400).send({ mensagem: "Campos inválidos" });
+
+    Clientes.update(
+        { _id: req.params.id},
+        { $set: req.body },
+        { upsert: true },
+        function (err) {
+            if (err) return res.status(500).send(err);
+            res.status(200).send({ mensagem: "Atualizado com sucesso!" })
+        }
+    );
+}; 
+
+exports.deletarCliente = (req, res) => {
+    const idCliente = req.params.id;
+
+    Clientes.findById(idCliente, function(err, cliente){
+        if(err) return res.status(500).send(err);
+
+        if(!cliente) {
+            return res.status(200).send({ mensagem: `Infelizmente não pudemos localizar o Cliente com id ${idCliente}` });
+        }
+
+        cliente.remove(function (err){
+            if(!err){
+                res.status(204).send({ mensagem: "Cliente removida com sucesso!" })
+            }
+        })
+    })
+}
