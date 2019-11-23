@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const clientes = require('./routes/clientesRoute');
 
 //Conexão com Banco de Dados
-mongoose.connect("mongodb://localhost:27017/clientes", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://jandosoGeneral:01020304@omnistack-34kgb.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on("error", console.log.bind(console, "connection error:"));

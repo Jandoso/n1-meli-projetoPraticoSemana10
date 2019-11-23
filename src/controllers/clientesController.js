@@ -52,7 +52,8 @@ exports.post = (req, res) => {
     });
 };
 
-exports.update = (req, res) => {
+
+exports.alterarCliente = (req, res) => {
 
     if(!validaFormulario(req.body)) return res.status(400).send({ mensagem: "Campos inválidos" });
 
@@ -84,3 +85,17 @@ exports.deletarCliente = (req, res) => {
         })
     })
 }
+
+const validaFormulario = (campos) => {
+    const schema = {
+        nome: Joi.string().min(1).required(),
+        email: Joi.string().min(1).required()
+    }
+    const validation = Joi.validate(campos, schema)
+
+    if(validation.erro){
+        return false 
+    }
+    return true 
+};
+
